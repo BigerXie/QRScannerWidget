@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entities>
+  <ExtensionPackages>
+    <ExtensionPackage 
+      name="QRScannerWidget"
+      packageVersion="0.12.0"
+      vendor="Accenture Italy - Industry X"
+      description="Extension to show a QR code scanner"
+      minimumThingWorxVersion="8.3.0"
+      dependsOn=""> 
+    </ExtensionPackage>
+  </ExtensionPackages>
+  
+  <Widgets>
+    <Widget name="qrscanner">
+      <UIResources>
+        <FileResource description="" file="qrscanner.ide.js" isDevelopment="true" isRuntime="false" type="JS"/>
+        <FileResource description="" file="qrscanner.ide.css" isDevelopment="true" isRuntime="false" type="CSS"/>
+        <FileResource description="" file="qrscanner.runtime.js" isDevelopment="false" isRuntime="true" type="JS"/>
+        <FileResource description="" file="qrscanner.runtime.css" isDevelopment="false" isRuntime="true" type="CSS"/>
+      </UIResources>
+    </Widget>
+  </Widgets>
+</Entities>
