@@ -25,6 +25,7 @@ TW.Runtime.Widgets.qrscanner = function () {
   this.afterRender = function () {
     var debugMode = thisWidget.getProperty('debugMode');
 
+    QrScanner._disableBarcodeDetector = true;
     QrScanner.hasCamera().then(result => {
       if (debugMode) {
         console.log("QR Scanner -> hasCamera = " + result);
@@ -35,33 +36,33 @@ TW.Runtime.Widgets.qrscanner = function () {
   };
 
   this.serviceInvoked = function (serviceName) {
+    QrScanner._disableBarcodeDetector = true;
+    
     if (serviceName === 'Scan') {
       var debugMode = thisWidget.getProperty('debugMode');
 
       if (!qrScanner) {
-        qrScanner = new QrScanner(document.getElementById('widget-qrscanner-video-' + uid),
-                result => {
-                  qrScanner.stop();
+        qrScanner = new QrScanner(document.getElementById('widget-qrscanner-video-' + uid), result => {
+          qrScanner.stop();
 
-                  if (debugMode) {
-                    console.log("QR Scanner -> result = " + result);
-                  }
-                  thisWidget.setProperty("content", result.data);
-                  thisWidget.jqElement.triggerHandler('Scanned');
-                },
-                {
-                  onDecodeError: error => {
-                    if (error !== QrScanner.NO_QR_CODE_FOUND) {
-                      if (debugMode) {
-                        console.log("QR Scanner -> error = " + error);
-                      }
-                      thisWidget.setProperty("error", error);
-                      thisWidget.jqElement.triggerHandler('Error');
-                    }
-                  },
-                  highlightScanRegion: true,
-                  highlightCodeOutline: true
-                });
+          if (debugMode) {
+            console.log("QR Scanner -> result = " + result);
+          }
+          thisWidget.setProperty("content", result.data);
+          thisWidget.jqElement.triggerHandler('Scanned');
+        }, {
+          onDecodeError: error => {
+            if (error !== QrScanner.NO_QR_CODE_FOUND) {
+              if (debugMode) {
+                console.log("QR Scanner -> error = " + error);
+              }
+              thisWidget.setProperty("error", error);
+              thisWidget.jqElement.triggerHandler('Error');
+            }
+          },
+          highlightScanRegion: true,
+          highlightCodeOutline: true
+        });
       }
 
       qrScanner.start().then(() => {
@@ -97,6 +98,5 @@ TW.Runtime.Widgets.qrscanner = function () {
     } catch (err) {
       TW.log.error('QR Scanner Before Destroy Error', err);
     }
-  }
-  ;
+  };
 };
