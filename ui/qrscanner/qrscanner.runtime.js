@@ -37,7 +37,7 @@ TW.Runtime.Widgets.qrscanner = function () {
 
   this.serviceInvoked = function (serviceName) {
     QrScanner._disableBarcodeDetector = true;
-    
+
     if (serviceName === 'Scan') {
       var debugMode = thisWidget.getProperty('debugMode');
 
@@ -65,6 +65,7 @@ TW.Runtime.Widgets.qrscanner = function () {
         });
       }
 
+      qrScanner.setInversionMode("both");
       qrScanner.start().then(() => {
       }, (error) => {
         if (debugMode) {
